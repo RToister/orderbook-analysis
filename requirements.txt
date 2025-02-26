@@ -1,6 +1,6 @@
 numpy
 pytest
-requests>=2.20.0
-pandas>=1.1.0
+requests
+pandas
 uvicorn
 fastapi
