@@ -5,14 +5,10 @@ import logging
 API_URL = os.getenv("API_URL", "https://api.example.com/orderbook")
 
 def fetch_orderbook():
-    """
-    Fetch the order book from the API and return structured data.
-    Returns:
-        dict: {"bids": [[price, volume]], "asks": [[price, volume]]}
-    """
+    """Фетчинг ордербуку з API"""
     try:
         response = requests.get(API_URL, timeout=5)
-        response.raise_for_status()  # Raise an error for bad responses
+        response.raise_for_status()
         data = response.json()
 
         return {
@@ -20,8 +16,5 @@ def fetch_orderbook():
             "asks": [[float(price), float(volume)] for price, volume in data.get("asks", [])]
         }
     except requests.RequestException as e:
-        logging.error(f"Request failed: {e}")
+        logging.error(f"API request failed: {e}")
         return {"bids": [], "asks": []}
-
-if __name__ == "__main__":
-    print("Fetched orderbook:", fetch_orderbook())
